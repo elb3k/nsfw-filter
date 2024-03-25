@@ -46,23 +46,23 @@ export class ImageFilter extends Filter implements IImageFilter {
 
     const request = new PredictionRequest(image.src)
     this.requestToAnalyzeImage(request)
-      .then(({ result, url }) => {
+      .then(({ result}) => {
         if (result) {
           if (this.settings.filterEffect === 'blur') {
             image.style.filter = 'blur(25px)'
-            this.showImage(image, url)
+            this.showImage(image)
           } else if (this.settings.filterEffect === 'grayscale') {
             image.style.filter = 'grayscale(1)'
-            this.showImage(image, url)
+            this.showImage(image)
           }
 
           this.blockedItems++
           image.dataset.nsfwFilterStatus = 'nsfw'
         } else {
-          this.showImage(image, url)
+          this.showImage(image)
         }
       }).catch(({ url }) => {
-        this.showImage(image, url)
+        this.showImage(image)
       })
   }
 
@@ -72,12 +72,12 @@ export class ImageFilter extends Filter implements IImageFilter {
     image.style.visibility = 'hidden'
   }
 
-  private showImage (image: HTMLImageElement, url: string): void {
-    if (image.src === url) {
+  private showImage (image: HTMLImageElement): void {
+    // if (image.src === url) {
       if (image.parentNode?.nodeName === 'BODY') image.hidden = false
 
       image.dataset.nsfwFilterStatus = 'sfw'
       image.style.visibility = 'visible'
-    }
+    // }
   }
 }

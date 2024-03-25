@@ -8,7 +8,7 @@
     "test": "npm run test:unit && npm run test:e2e",
     "test:e2e": "cross-env HEADLESS=false jest --no-cache -c ./test/jest.e2e.config.js",
     "test:unit": "jest --no-cache -c ./test/jest.unit.config.js",
-    "build": "npm run clean && webpack --config webpack/webpack.prod.js",
+    "build": "npm run clean && NODE_OPTIONS=--openssl-legacy-provider webpack --config webpack/webpack.prod.js",
     "dev": "webpack --config webpack/webpack.dev.js",
     "dev:chrome": "npm-run-all --parallel dev start:chrome",
     "start:chrome": "web-ext run --source-dir ./dist/ --target=chromium"
@@ -78,7 +78,7 @@
     "style-loader": "1.2.1",
     "ts-jest": "26.4.1",
     "ts-loader": "6.2.1",
-    "typescript": "3.9.7",
+    "typescript": "5.3.3",
     "web-ext": "5.2.0",
     "webpack": "4.42.0",
     "webpack-bundle-analyzer": "3.9.0",

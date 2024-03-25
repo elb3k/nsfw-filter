@@ -4,7 +4,7 @@ import { TabIdUrl } from './QueueBase'
 // @TODO Add tabs priority, when user opens 5 tabs at once(restore tabs) and go to 4th tab - we need to switch to images prediction of 4th tab immediately
 
 type IQueueWrapper = {
-  predict: (url: string, tabId: TabIdUrl) => Promise<boolean>
+  predict: (url: string, tabId: TabIdUrl, useCache:boolean) => Promise<boolean>
   clearByTabId: (tabId: number) => void
   addTabIdUrl: (tabIdUrl: TabIdUrl) => void
   updateTabIdUrl: (tabIdUrl: TabIdUrl) => void

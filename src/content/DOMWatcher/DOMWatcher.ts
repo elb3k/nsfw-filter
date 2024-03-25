@@ -7,6 +7,7 @@
 // @TODO video
 
 import { IImageFilter } from '../Filter/ImageFilter'
+import { IVideoFilter } from '../Filter/VideoFilter'
 
 export type IDOMWatcher = {
   watch: () => void
@@ -15,9 +16,11 @@ export type IDOMWatcher = {
 export class DOMWatcher implements IDOMWatcher {
   private readonly observer: MutationObserver
   private readonly imageFilter: IImageFilter
+  private readonly videoFilter: IVideoFilter
 
-  constructor (imageFilter: IImageFilter) {
+  constructor (imageFilter: IImageFilter, videoFilter: IVideoFilter) {
     this.imageFilter = imageFilter
+    this.videoFilter = videoFilter
     this.observer = new MutationObserver(this.callback.bind(this))
   }
 
@@ -41,11 +44,20 @@ export class DOMWatcher implements IDOMWatcher {
     for (let i = 0; i < images.length; i++) {
       this.imageFilter.analyzeImage(images[i], false)
     }
+
+    const videos = element.getElementsByTagName('video')
+    for (let i = 0; i < videos.length; i++){
+      this.videoFilter.analyzeVideo(videos[i] as HTMLVideoElement, false);
+    }
+
   }
 
   private checkAttributeMutation (mutation: MutationRecord): void {
     if ((mutation.target as HTMLImageElement).nodeName === 'IMG') {
       this.imageFilter.analyzeImage(mutation.target as HTMLImageElement, mutation.attributeName === 'src')
+    }
+    if ((mutation.target as HTMLImageElement).nodeName === 'VIDEO') {
+      this.videoFilter.analyzeVideo(mutation.target as HTMLVideoElement, mutation.attributeName === 'src')
     }
   }
 
