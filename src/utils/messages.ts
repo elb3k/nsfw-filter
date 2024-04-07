@@ -1,12 +1,14 @@
 export class PredictionRequest {
   public readonly url: string
+  public readonly use_cache: boolean
     public readonly type?: string // @DOCS Chrome internal usage
   public reconectTimer?: number
   private _reconectCount: number
 
-  constructor (url: string) {
+  constructor (url: string, use_cache:boolean) {
     this.url = url
-        this._reconectCount = 0
+    this.use_cache = use_cache
+    this._reconectCount = 0
   }
 
   public clearTimer (): number {

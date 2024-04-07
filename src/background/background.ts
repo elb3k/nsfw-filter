@@ -55,7 +55,7 @@ const load = ({ logger, store, modelSettings }: loadType): void => {
 
         const { url } = request
         const tabIdUrl = _buildTabIdUrl(sender.tab as chrome.tabs.Tab)
-        queue.predict(url, tabIdUrl)
+        queue.predict(url, tabIdUrl, request.use_cache)
           .then(result => callback(new PredictionResponse(result, url)))
           .catch(err => callback(new PredictionResponse(false, url, err.message)))
 

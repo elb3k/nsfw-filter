@@ -59,7 +59,7 @@ export class VideoFilter extends Filter implements IVideoFilter {
         // Run image detection
         const img = this._getImageFromVideo(video, canvas, ctx);
         if (img !== undefined){
-          const request = new PredictionRequest(img);
+          const request = new PredictionRequest(img, false /*Use Cache*/);
           this.requestToAnalyzeImage(request).
           then(({result}) => {
             if (result){

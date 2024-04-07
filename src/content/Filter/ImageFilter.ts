@@ -44,7 +44,7 @@ export class ImageFilter extends Filter implements IImageFilter {
   private _analyzeImage (image: HTMLImageElement): void {
     this.hideImage(image)
 
-    const request = new PredictionRequest(image.src)
+    const request = new PredictionRequest(image.src, true /*Use Cache*/)
     this.requestToAnalyzeImage(request)
       .then(({ result}) => {
         if (result) {
